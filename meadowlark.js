@@ -1,15 +1,10 @@
 var express = require('express')
+var fortune = require('./lib/fortuneCookies.js')
 
 var app = express()
 
 var handlebars = require('express3-handlebars').create({ defaultLayout: 'main' })
 
-var fortunes = [
-"Conquer you fears or they will conquer you",
-"River need springs",
-"Do not fear what you don't know",
-"You will have a pleasant suprise"
-]
 
 app.engine('handlebars', handlebars.engine)
 app.set('view engine', 'handlebars')
@@ -21,7 +16,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/about', function (req, res) {
-  var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
+  var randomFortune = fortune.getFortune()
   res.type('text/html')
   res.render('about', {fortune : randomFortune})
 })
